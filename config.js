@@ -34,7 +34,7 @@ var config = {
 	localdb:'mongodb://127.0.0.1:27017/ibaiyu',
   session_secret: 'ibaiyu',
   auth_cookie_name: 'ibaiyu',
-  port: 3000,
+  port:process.env.BAE_ENV_APPID=='appid4d97d63yny'?18080:3000,
 
   // 话题列表显示的话题数量
   list_topic_count: 20,

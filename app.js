@@ -130,9 +130,9 @@ routes(app);
 
   app.listen(port);
 
-  console.log("NodeClub listening on port %d in %s mode", app.get('port'), app.settings.env);
+  console.log("NodeClub listening on port %d in %s mode", port, app.settings.env);
   console.log("God bless love....");
-  console.log("You can debug your app with http://" + config.hostname + ':' + config.port);
+  console.log("You can debug your app with http://" + config.hostname + ':' + port);
 
 
 module.exports = app;
