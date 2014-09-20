@@ -53,7 +53,8 @@ ndir.mkdir(config.upload_dir, function (err) {
 var app = express.createServer();
 
 // configuration in all env
-app.set('port', process.env.PORT || config.port);
+
+var port= process.env.PORT || config.port;
 app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 
@@ -126,7 +127,8 @@ passport.use(new GitHubStrategy(config.GITHUB_OAUTH, githubStrategyMiddleware));
 routes(app);
 
 if (process.env.NODE_ENV !== 'test') {
-  app.listen(app.get('port'));
+
+  app.listen(port);
 
   console.log("NodeClub listening on port %d in %s mode", app.get('port'), app.settings.env);
   console.log("God bless love....");
