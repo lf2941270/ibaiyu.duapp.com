@@ -126,13 +126,13 @@ passport.use(new GitHubStrategy(config.GITHUB_OAUTH, githubStrategyMiddleware));
 // routes
 routes(app);
 
-if (process.env.NODE_ENV !== 'test') {
+
 
   app.listen(port);
 
   console.log("NodeClub listening on port %d in %s mode", app.get('port'), app.settings.env);
   console.log("God bless love....");
   console.log("You can debug your app with http://" + config.hostname + ':' + config.port);
-}
+
 
 module.exports = app;
