@@ -2,7 +2,7 @@
   "name": "club",
   "version": "0.3.6",
   "main": "app.js",
-	"scripts":{"start":"node app.js"},
+
   "private": true,
   "customHost": [
     "cnodejs.org",
@@ -36,6 +36,7 @@
     "mm": "*"
   },
   "scripts": {
+		"start":"node app.js",
     "test": "make test"
   }
 }
