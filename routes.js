@@ -33,12 +33,18 @@ var config = require('./config');
 module.exports = function (app) {
   // home page
   app.get('/', site.index);
+
+	app.get('/signup', sign.showSignup);
+	app.post('/signup', sign.signup);
+	app.post('/signout', sign.signout);
+	app.get('/signin', sign.showLogin);
+	app.post('/signin', sign.login);
+	app.get('/active_account', sign.active_account);
+
 	app.get('/topic/:tid/edit', topic.showEdit);  // 编辑开服
+	app.get('/topic/create', auth.signinRequired, topic.create);
 
-
-
-	app.get('/topic/create', topic.create);
-  app.post('/topic/create', topic.put);//新建开服
+  app.post('/topic/create', auth.signinRequired, topic.put);//新建开服
 	app.post('/topic/:tid/edit', topic.update);//编辑开服
 
 

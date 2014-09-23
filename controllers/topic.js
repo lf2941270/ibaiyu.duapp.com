@@ -47,6 +47,7 @@ exports.put = function(req, res, next){
 	topic.open_time = new Date(sanitize(req.body.open_time || '').trim());
 	topic.server = parseInt(sanitize(req.body.server || '').trim());
 	topic.sign_url = sanitize(req.body.sign_url || '').trim();
+	console.log(req.session)
 	topic.author_id = req.session.user._id;
 
 	//检测参数是否合法：
