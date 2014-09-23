@@ -47,5 +47,8 @@ module.exports = function (app) {
   app.post('/topic/create', auth.signinRequired, topic.put);//新建开服
 	app.post('/topic/:tid/edit', topic.update);//编辑开服
 
+	app.get('/invitation/:num', auth.adminRequired, ajax.setHeader, sign.createInvitationCode);
+
+
 
 };

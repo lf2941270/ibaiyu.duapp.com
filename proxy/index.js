@@ -7,3 +7,4 @@ exports.Relation = require('./relation');
 exports.TagCollect = require('./tag_collect');
 exports.TopicTag = require('./topic_tag');
 exports.TopicCollect = require('./topic_collect');
+exports.InvitationCode = require('./invitation_code')

@@ -6,7 +6,9 @@ var config = require('../config').config;
 
 var User = require('../proxy').User;
 var Message = require('../proxy').Message;
+var InvitationCode = require('../proxy').InvitationCode;
 var mail = require('../services/mail');
+
 
 //sign up
 exports.showSignup = function (req, res) {
@@ -368,3 +370,24 @@ function randomString(size) {
   }
   return new_pass;
 }
+
+exports.createInvitationCode = function(req, res, next){
+	var num=req.params.num || 1;
+	var codes=[];
+	for(var i = 0; i < num; i++ ) {
+		codes.push(guid());
+	}
+	InvitationCode.newAndSave(codes, function(err, codes){
+		if(err){
+			return next(err);
+		}
+		res.end(String(codes));
+	})
+}
+
+function guid(){
+	return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+		var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+		return v.toString(16);
+	}).toUpperCase();
+};

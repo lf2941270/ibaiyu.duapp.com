@@ -6,7 +6,7 @@ exports.adminRequired = function (req, res, next) {
     return res.render('notify/notify', {error: '你还没有登录。'});
   }
   if (!req.session.user.is_admin) {
-    return res.render('notify/notify', {error: '管理员才能编辑标签。'});
+    return res.render('notify/notify', {error: '该操作需要管理员权限。'});
   }
   next();
 };
