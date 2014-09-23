@@ -697,9 +697,7 @@ textarea.editor {
   width: 98%;
 }
 
-#submit_btn {
-  margin-top: 10px;
-}
+
 
 #content .header {
   line-height: 200%;
@@ -758,4 +756,17 @@ textarea.editor {
 .reply_content table tr th>:last-child,
 .reply_content table tr td>:last-child {
   margin-bottom:0;
+}
+
+#create_topic_form label{
+  margin-top: 4px;
+  display: inline-block;
+  text-align: center;
+}
+#create_topic_form textarea{
+  margin-bottom: 10px;
+}
+#submit_btn {
+  margin-left: 639px;
+  float: left;
 }

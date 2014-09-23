@@ -1,5 +1,25 @@
 var xss = require('xss');
 
+/**
+ * 比较两个对象是否相等的方法
+ */
+var equals = function(obj1, obj2){
+	if ((obj1 === obj2)){return true;}
+	if (!(obj2 instanceof Object) || (obj2===null)){return false;} // null is not instanceof Object.
+	var i = 0; // object property counter.
+	for (var k in obj1){
+		i++;
+		var o1 = obj1[k];
+		var o2 = obj2[k];
+		if ((o1!=null) && !(equals(o1,o2))){return false;} // inner object.
+	}
+	for (var k in obj2){ // compare object property counter.
+		i--;
+	}
+	return i===0;
+};
+exports.equals= equals;
+
 exports.format_date = function (date, friendly) {
   var year = date.getFullYear();
   var month = date.getMonth() + 1;

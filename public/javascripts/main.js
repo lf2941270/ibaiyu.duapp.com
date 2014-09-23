@@ -46,46 +46,5 @@ $(document).ready(function () {
   $('.topic_content a,.reply_content a').attr('target', '_blank');
 
 
-  //ajax获取新通知并在有新通知时显示消息到页面上
-  function GetNotice(){
-    var _=this,
-      n=0;
-    this.refresh=function(){
-      console.log(++n);
-      $.ajax({
-        url: "/notice",
-        dataType:"json",
-        timeout:1000*90,//长连接设置超时时间为90s
-        type:'POST',
-        /*期望数据格式：
-        * {
-        *   count:0,
-        *   url:""
-        * }
-        * 若是未登录或者出现错误，则返回null
-        * */
-        success: function(data){
-          if(data&&data!==null&&data.count>0){
-            var html='<a target="_blank" style="color: #005580;" href="'+data.url+'">您有'+data.count+'条新消息</a>',
-              _html=$("#notice_box").html();
-            if(html!=_html){
-              $("#notice_box").html(html).fadeIn();
-            }
-          }else{
-            $("#notice_box").fadeOut(function(){$(this).empty()});
-          }
-          _.refresh();
-        },
-        error:function(XMLHttpRequest, textStatus, errorThrown){
-          _.refresh();
-        },
-        complete:function (XMLHttpRequest, textStatus) {
-          XMLHttpRequest=null;
-        }
-      });
 
-    }
-    this.refresh();
-  }
-  new GetNotice();
 });
