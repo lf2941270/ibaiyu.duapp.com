@@ -53,7 +53,7 @@ exports.format_date = function (date, friendly) {
 
   var thisYear = new Date().getFullYear();
   year = (thisYear === year) ? '' : (year + '-');
-  return year + month + '-' + day + ' ' + hour + ':' + minute;
+  return thisYear + '-' + month + '-' + day + ' ' + hour + ':' + minute;
 };
 /**
  * Escape the given string of `html`.
