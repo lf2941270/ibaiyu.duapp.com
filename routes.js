@@ -34,11 +34,11 @@ module.exports = function (app) {
   // home page
   app.get('/', site.index);
 
-	app.get('/signup', sign.showSignup);
-	app.post('/signup', sign.signup);
-	app.post('/signout', sign.signout);
-	app.get('/signin', sign.showLogin);
-	app.post('/signin', sign.login);
+	app.get('/signup', sign.showSignup); //显示注册页
+	app.post('/signup', sign.signup); //提交注册表单
+	app.post('/signout', sign.signout); //退出登录
+	app.get('/signin', sign.showLogin); //显示登录页
+	app.post('/signin', sign.login); //提交登录表单
 	app.get('/active_account', sign.active_account);
 
 	app.get('/topic/:tid/edit', topic.showEdit);  // 编辑开服

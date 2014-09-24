@@ -6,16 +6,16 @@ var path = require('path');
 var pkg = require('./package.json');
 
 var config = {
-  debug: true,
-  name: 'Node Club',
-  description: 'Node Club 是用Node.js开发的社区软件',
+  debug: false,
+  name: '爱百娱开服表',
+  description: '爱百娱内部开服发布平台',
   version: pkg.version,
 
   // site settings
   site_headers: [
     '<meta name="author" content="EDP@TAOBAO" />',
   ],
-  host: 'localhost.cnodejs.org',
+  host: 'localhost',
   // 默认的Google tracker ID，自有站点请修改，申请地址：http://www.google.com/analytics/
   google_tracker_id: 'UA-41753901-5',
   site_logo: '', // default is `name`
@@ -94,11 +94,11 @@ var config = {
 
   // mail SMTP
   mail_opts: {
-    host: 'smtp.126.com',
+    host: 'smtp.163.com',
     port: 25,
     auth: {
-      user: 'club@126.com',
-      pass: 'club'
+      user: 'lf2941270@163.com',
+      pass: 'lifan19890826'
     }
   },
 
