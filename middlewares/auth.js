@@ -34,8 +34,10 @@ exports.signinRequired = function (req, res, next) {
 
 exports.blockUser = function () {
   return function (req, res, next) {
-    if (req.session.user && req.session.user.is_block) {
-      return res.send('您被屏蔽了。');
+    if (req.session.user && req.session.user.is_block && req.originalUrl !== '/signout') {//封禁账号后禁止其它一切操作，除了退出登录操作
+			res.render('notify/notify', {error: '您的账号已被封禁，请联系管理员解封。'});
+			return;
+//      return res.send('您被屏蔽了。');
     }
     next();
   };

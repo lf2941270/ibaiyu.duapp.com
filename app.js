@@ -70,7 +70,7 @@ app.use(express.session({
 app.use(passport.initialize());
 // custom middleware
 app.use(require('./controllers/sign').auth_user);
-app.use(auth.blockUser());
+//app.use(auth.blockUser());
 app.use('/upload/', express.static(config.upload_dir, { maxAge: maxAge }));
 // old image url: http://host/user_data/images/xxxx
 app.use('/user_data/', express.static(path.join(__dirname, 'public', 'user_data'), { maxAge: maxAge }));

@@ -31,6 +31,7 @@ var config = require('./config');
 
 
 module.exports = function (app) {
+	app.all('*',auth.blockUser());
   // home page
   app.get('/', site.index);
 

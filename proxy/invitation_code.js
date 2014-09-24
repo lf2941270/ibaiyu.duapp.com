@@ -26,3 +26,16 @@ exports.newAndSave = function(codes, callback) {
 		})
 	})
 }
+
+/**
+ * 根据邀请码取出对应的记录
+ * @param {String} code 邀请码
+ */
+exports.getOneByCode = function(code, callback) {
+	InvitationCode.findOne({code: code},function(err, invitationCode) {
+		if(err){
+			return callback(err);
+		}
+		callback(null,invitationCode);
+	})
+}

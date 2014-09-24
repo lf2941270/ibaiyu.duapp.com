@@ -8,6 +8,7 @@ var User = require('../proxy').User;
 var Message = require('../proxy').Message;
 var InvitationCode = require('../proxy').InvitationCode;
 var mail = require('../services/mail');
+var EventProxy = require('eventproxy');
 
 
 //sign up
@@ -26,60 +27,81 @@ exports.signup = function (req, res, next) {
   email = sanitize(email).xss();
   var re_pass = sanitize(req.body.re_pass).trim();
   re_pass = sanitize(re_pass).xss();
+	var invitation_code = sanitize(req.body.invitation_code).trim();
+	invitation_code = sanitize(invitation_code).xss();
 
   if (name === '' || pass === '' || re_pass === '' || email === '') {
-    res.render('sign/signup', {error: '信息不完整。', name: name, email: email});
+    res.render('sign/signup', {error: '信息不完整。', name: name, email: email, invitation_code: invitation_code});
     return;
   }
 
   if (name.length < 5) {
-    res.render('sign/signup', {error: '用户名至少需要5个字符。', name: name, email: email});
+    res.render('sign/signup', {error: '用户名至少需要5个字符。', name: name, email: email, invitation_code: invitation_code});
     return;
   }
 
   try {
     check(name, '用户名只能使用0-9，a-z，A-Z。').isAlphanumeric();
   } catch (e) {
-    res.render('sign/signup', {error: e.message, name: name, email: email});
+    res.render('sign/signup', {error: e.message, name: name, email: email, invitation_code: invitation_code});
     return;
   }
 
   if (pass !== re_pass) {
-    res.render('sign/signup', {error: '两次密码输入不一致。', name: name, email: email});
+    res.render('sign/signup', {error: '两次密码输入不一致。', name: name, email: email, invitation_code: invitation_code});
     return;
   }
 
   try {
     check(email, '不正确的电子邮箱。').isEmail();
   } catch (e) {
-    res.render('sign/signup', {error: e.message, name: name, email: email});
+    res.render('sign/signup', {error: e.message, name: name, email: email, invitation_code: invitation_code});
     return;
   }
 
   User.getUsersByQuery({'$or': [{'loginname': loginname}, {'email': email}]}, {}, function (err, users) {
+		var proxy = new EventProxy;
+		proxy.on('invitation',function(){
+			// md5 the pass
+			pass = md5(pass);
+			// create gavatar
+			var avatar_url = 'http://www.gravatar.com/avatar/' + md5(email.toLowerCase()) + '?size=48';
+
+			User.newAndSave(name, loginname, pass, email, avatar_url, false, function (err) {
+				if (err) {
+					return next(err);
+				}
+				// 发送激活邮件
+				mail.sendActiveMail(email, md5(email + config.session_secret), name);
+				res.render('sign/signup', {
+					success: '欢迎加入 ' + config.name + '！我们已给您的注册邮箱发送了一封邮件，请点击里面的链接来激活您的帐号。'
+				});
+			});
+		})
     if (err) {
       return next(err);
     }
     if (users.length > 0) {
-      res.render('sign/signup', {error: '用户名或邮箱已被使用。', name: name, email: email});
+      res.render('sign/signup', {error: '用户名或邮箱已被使用。', name: name, email: email, invitation_code: invitation_code});
       return;
     }
+		InvitationCode.getOneByCode(invitation_code, function(err, code){
+			if(code === null){
+				return res.render('sign/signup', {error: '邀请码输入有误', name: name, email: email, invitation_code: invitation_code});
+			}
+			if(code.used){
+				return res.render('sign/signup', {error: '邀请码已经被使用过，请重新输入', name: name, email: email, invitation_code: invitation_code});
+			}
+			code.used=true;
+			code.save(function(err, invitation_code) {
+				if(err){
+					return next(err);
+				}
+				proxy.emit('invitation');
+			})
+		})
 
-    // md5 the pass
-    pass = md5(pass);
-    // create gavatar
-    var avatar_url = 'http://www.gravatar.com/avatar/' + md5(email.toLowerCase()) + '?size=48';
 
-    User.newAndSave(name, loginname, pass, email, avatar_url, false, function (err) {
-      if (err) {
-        return next(err);
-      }
-      // 发送激活邮件
-      mail.sendActiveMail(email, md5(email + config.session_secret), name);
-      res.render('sign/signup', {
-        success: '欢迎加入 ' + config.name + '！我们已给您的注册邮箱发送了一封邮件，请点击里面的链接来激活您的帐号。'
-      });
-    });
   });
 };
 
