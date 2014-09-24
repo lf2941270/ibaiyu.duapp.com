@@ -37,7 +37,7 @@ exports.showEdit = function (req, res, next) {
 		if (String(topic.author_id) === String(req.session.user._id) || req.session.user.is_admin) {
 			res.render('topic/edit', {action: 'edit', topic_id: topic._id, game: topic.game, open_time: Util.format_date(topic.open_time), server: topic.server, sign_url: topic.sign_url});
 		} else {
-			res.render('notify/notify', {error: '对不起，你不能编辑此话题。'+String(topic.author_id)+'|'+req.session.user._id});
+			res.render('notify/notify', {error: '对不起，你不能编辑此话题。'});
 		}
 	});
 }
