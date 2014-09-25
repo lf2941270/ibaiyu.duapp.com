@@ -37,7 +37,7 @@ var config = {
   port:process.env.BAE_ENV_APPID=='appid4d97d63yny'?18080:3000,
 
   // 话题列表显示的话题数量
-  list_topic_count: 20,
+  list_topic_count: 25,
 
   // 限制发帖时间间隔，单位：毫秒
   post_interval: 10000,
