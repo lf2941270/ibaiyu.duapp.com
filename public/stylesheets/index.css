@@ -15,6 +15,7 @@ body{
 body #main{
   position: relative;
   width: 824px;
+  height: 1550px;
   margin: 0 auto;
 }
 #content{
@@ -23,6 +24,21 @@ body #main{
   width: 744px;
   height: 1040px;
   padding: 40px;
+}
+.header{
+  padding: 10px;
+  border-bottom: 1px dashed #a99b83;
+  margin-bottom: 15px;
+}
+.header h3{
+  float: left;
+  margin: 0;
+  color: #574e3f;
+}
+#create_topic_btn{
+  display: block;
+  float: right;
+  line-height: 40px;
 }
 .pagination ul{
   background: #fff;
@@ -34,7 +50,7 @@ body #main{
   float: left;
   height: 36px;
   margin-right: 2px;
-  color: #494236;
+  color: #574e3f;
   font-size: 16px;
   font-weight: bolder;
   line-height: 36px;
@@ -44,7 +60,7 @@ body #main{
 .topic_list .bd li{
   height: 35px;
   line-height: 35px;
-  border-bottom: 1px dashed #999;
+  border-bottom: 1px dashed #b7ab95;
   list-style: none;
 }
 .topic_list .bd li span{
@@ -53,4 +69,44 @@ body #main{
   float: left;
   display: block;
   text-align: center;
+  color: #5a5650;
+}
+#footer {
+  margin-top: 30px;
+  border-top: 3px solid #ff6600;
+  background: #ffffff;
+}
+#footer .links{
+  display: block;
+  text-align: center;
+  padding: 20px 0 16px 0;
+  border-bottom: 1px solid #cccccc;text-align: center;
+}
+#footer .links li{
+  display: inline-block;
+  width: 96px;
+}
+#footer .links li a{
+  color: #888888;
+  font-size: 14px;
+}
+#footer .links li a:hover{
+  color: #ff6600;
+  text-decoration: none;
+}
+.copyright{
+  text-align: center;
+  color: #888888;
+  padding: 14px 0 80px;
+}
+.copyright p{
+  line-height:24px;
+}
+.layout-1000 {
+  width: 1000px;
+}
+.layout {
+  margin: 0 auto;
+  text-align: left;
+  overflow: hidden;
 }

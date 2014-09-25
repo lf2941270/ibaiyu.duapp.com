@@ -51,5 +51,5 @@ module.exports = function (app) {
 	app.get('/invitation/:num', auth.adminRequired, ajax.setHeader, sign.createInvitationCode);
 
 
-	app.get('*', site.notFound);
+	app.get('*', site.notFound); // 404
 };
