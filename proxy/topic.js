@@ -92,6 +92,7 @@ exports.getTopicsByQuery = function (query, opt, callback) {
 				if (topic) {
 					topic.author = author;
 					topic.friendly_create_at = Util.format_date(topic.create_at, true);
+					topic.friendly_open_time = Util.format_date(topic.open_time)
 				}
 				return topic;
 			}));

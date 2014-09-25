@@ -30,6 +30,7 @@ exports.index = function (req, res, next) {
 					current_page: page,
 					list_topic_count: limit,
 					pages: pages,
+					uid: uid,
 					site_links: config.site_links,
 					keyword: '',
 					"layout":"layoutIndex"
@@ -45,7 +46,7 @@ exports.index = function (req, res, next) {
 			limit: limit,
 			sort: [
 				['top', 'desc' ],
-				[ 'last_reply_at', 'desc' ]
+				[ 'open_time', 'desc' ]
 			] };
 		var optionsStr = JSON.stringify(options);
 
@@ -83,4 +84,9 @@ exports.index = function (req, res, next) {
 
 };
 
-
+/**
+ * 404 Not Found
+ */
+exports.notFound = function(req, res, next) {
+	return res.render('404')
+}

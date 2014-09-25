@@ -1,0 +1,56 @@
+ul,li{
+  margin: 0;
+  padding: 0;
+}
+.clearfix:after{
+  content: " ";
+  display: block;
+  clear: both;
+  height: 0;
+  visibility: hidden;
+}
+body{
+  background: url("../images/kaifu_bg.jpg") center top;
+}
+body #main{
+  position: relative;
+  width: 824px;
+  margin: 0 auto;
+}
+#content{
+  position: absolute;
+  top: 427px;
+  width: 744px;
+  height: 1040px;
+  padding: 40px;
+}
+.pagination ul{
+  background: #fff;
+}
+.topic_list .hd li{
+  width: 170px;
+  display: block;
+  list-style: none;
+  float: left;
+  height: 36px;
+  margin-right: 2px;
+  color: #494236;
+  font-size: 16px;
+  font-weight: bolder;
+  line-height: 36px;
+  text-align: center;
+}
+.topic_list .bd{}
+.topic_list .bd li{
+  height: 35px;
+  line-height: 35px;
+  border-bottom: 1px dashed #999;
+  list-style: none;
+}
+.topic_list .bd li span{
+  width: 170px;
+  margin-right: 2px;
+  float: left;
+  display: block;
+  text-align: center;
+}

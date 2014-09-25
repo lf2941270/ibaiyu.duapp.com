@@ -61,10 +61,10 @@ exports.put = function(req, res, next){
 	if(isNaN(topic.server)){
 		editError.server = '服务器名称不合法';
 	}
-	if(!(/^(http:\/\/)?lj\.ibaiyu\.cn\/Tg\.html\?action=([A-Z0-9])+/.test(topic.sign_url))){
+	if(!(/^(http:\/\/)?lj\.ibaiyu\.cn\/(4372)?Tg\.html\?action=([A-Z0-9])+/.test(topic.sign_url))){
 		editError.sign_url='注册链接不合法';
 	}
-
+	topic.sign_url = (topic.sign_url.indexOf('http://') === 0 ? topic.sign_url : 'http://' + topic.sign_url);
 	//如果检测参数无误，则存储结果
 	if(Util.equals(editError,{})){
 		Topic.newAndSave(topic, function(err, topic){

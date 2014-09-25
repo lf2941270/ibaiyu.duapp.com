@@ -51,9 +51,8 @@ exports.format_date = function (date, friendly) {
   minute = ((minute < 10) ? '0' : '') + minute;
   second = ((second < 10) ? '0': '') + second;
 
-  var thisYear = new Date().getFullYear();
-  year = (thisYear === year) ? '' : (year + '-');
-  return thisYear + '-' + month + '-' + day + ' ' + hour + ':' + minute;
+
+  return year + '-' + month + '-' + day + ' ' + hour + ':' + minute;
 };
 /**
  * Escape the given string of `html`.
