@@ -53,21 +53,27 @@ exports.index = function (req, res, next) {
 		Topic.getTopicsByQuery(query, options, proxy.done('topics', function (topics) {
 			return topics;
 		}));
+		// 取分页数据
+
+		Topic.getCountByQuery(query, proxy.done(function (all_topics_count) {
+			var pages = Math.ceil(all_topics_count / limit);
+			proxy.emit('pages', pages);
+		}));
 	})
 	if (uid !== '') {
-		if(/[a-z0-9]{24}/.test(uid)){
+		if(/^[a-z0-9]{24}$/.test(uid)){
 			User.getUserById(uid, function(err, docs){
 				if(err){
 					return next(err);
 				}
 				if(docs === null) {
-					return res.render('notify/notify', {error: 'uid参数有误。'});
+					return res.redirect('/')
 				}
 				query.author_id = uid;
 				proxy.emit('query',query)
 			})
 		}	else{
-			return res.render('notify/notify', {error: 'uid参数有误。'});
+			return res.redirect('/');
 		}
 	}else{
 		proxy.emit('query',query)
@@ -75,12 +81,7 @@ exports.index = function (req, res, next) {
 
 
 
-	// 取分页数据
 
-	Topic.getCountByQuery({}, proxy.done(function (all_topics_count) {
-		var pages = Math.ceil(all_topics_count / limit);
-		proxy.emit('pages', pages);
-	}));
 
 };
 
