@@ -2,5 +2,11 @@
   <span class="col_01"><%= topic.friendly_open_time %></span>
   <span class="col_02"><%= topic.game %></span>
   <span class="col_03"><a target="_blank" href="<%= topic.sign_url %>">双线<%= topic.server %>服</a></span>
-  <span class="col_04"><a href="<%= topic.sign_url %>"><button class="btn btn-small btn-success">进入游戏</button></a></span></li>
+  <span class="col_04"><a class="btn btn-small btn-success" href="<%= topic.sign_url %>">进入游戏</a></span>
+
+  <% if (locals.current_user && (locals.current_user._id == topic.author_id || locals.current_user.is_admin)) { %>
+  <a href="/topic/<%= topic._id %>/edit"><i title="编辑开服信息" class="icon-edit"></i></a>
+  <i title="删除开服信息" class="icon-remove"></i>
+  <% } %>
+</li>
 

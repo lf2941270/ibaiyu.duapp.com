@@ -1,46 +1,19 @@
 <div id='sidebar'>
   <div class='panel'>
     <div class='header'>
-      <span class='col_fade'>话题发布步骤</span>
+      <span class='col_fade'>开服表发布步骤</span>
     </div>
     <div class='inner'>
       <ol>
-        <li>填写标题</li>
-        <li>填写内容</li>
-        <li>选择话题标签</li>
-        <li>确认后发布话题</li>
+        <li>填写游戏名称</li>
+        <li>填写开服时间</li>
+        <li>填写服务器名</li>
+        <li>填写爱百娱注册链接</li>
+        <li>确认无误后点击发布</li>
       </ol>
     </div>
   </div>
-  <div class='panel'>
-    <div class='header'>
-      <span class='col_fade'>话题发布指南</span>
-    </div>
-    <div class='inner'>
-      <ol>
-        <li>尽量把话题要点浓缩到标题里</li>
-        <li>内容对标题做进一步说明，但不是必须的</li>
-        <li>给话题选择合适的标签能增加被阅读的机会</li>
-      </ol>
-    </div>
-  </div>
-  <div class='panel'>
-    <div class='header'>
-      <span class='col_fade'>markdown语法参考</span>
-    </div>
-    <div class='inner'>
-      <ol>
-        <li>换行：两个空格</li>
-        <li>分段：一个空行</li>
-        <li>斜体：*斜体*</li>
-        <li>粗体：**粗体**</li>
-        <li>代码：行首四个空格</li>
-        <li>链接：[文字](url)</li>
-        <li>图片：![alt 文字](url)</li>
-      </ol>
-      <span>详见 <a href='http://www.ituring.com.cn/article/775' target='_blank'>Markdown Wiki</a></span>
-    </div>
-  </div>
+
 </div>
 
 <div id='content'>
@@ -49,9 +22,9 @@
       <ol class='breadcrumb'>
         <li><a href='/'>主页</a><span class='divider'>/</span></li>
         <% if(locals.action && action == 'edit'){ %>
-        <li class='active'>编辑话题</li>
+        <li class='active'>编辑开服</li>
         <% }else{ %>
-        <li class='active'>发布话题</li>
+        <li class='active'>发布开服</li>
         <% } %>
       </ol>
     </div>
@@ -73,17 +46,37 @@
       <form id='create_topic_form' action='/topic/create' method='post'>
       <% } %>
         <fieldset>
-          <label class='bold span2' for='game'>游戏名称:</label>
-          <textarea class=' span7' id='game' name='game' rows='1' placeholder="请在此输入游戏名称，字数少于10个字"><%= locals.game || '' %></textarea>
-          <label class='bold span2' for='open_time'>开服时间:</label>
-          <textarea class=' span7' id='open_time' name='open_time' rows='1'  placeholder="请在此输入开服时间，格式：2014-9-23 14:00"><%= locals.open_time || '' %></textarea>
-          <label class='bold span2' for='server'>服务器名:</label>
-          <textarea class=' span7' id='server' name='server' rows='1'  placeholder="请在此输入服务器名，只需输入数字即可"><%= locals.server || '' %></textarea>
-          <label class='bold span2' for='sign_url'>注册链接:</label>
-          <textarea class=' span7' id='sign_url' name='sign_url' rows='1'  placeholder="请在此输入爱百娱推广注册链接"><%= locals.sign_url || '' %></textarea>
+          <div class="control-group">
+            <label class="control-label bold span2" for="game">游戏名称:</label>
+            <div class="controls">
+              <input type="text" id="game" name="game" value="<%= locals.game || '' %>"/>
+              <span class="help-inline">请在此输入游戏名称，字数少于10个字</span>
+            </div>
+          </div><div class="control-group">
+            <label class="control-label bold span2" for="open_time">开服时间:</label>
+            <div class="controls">
+              <input type="text" id="open_time" name="open_time" value="<%= locals.open_time || '' %>"/>
+              <span class="help-inline">请在此输入开服时间，格式：2014-9-23 14:00</span>
+            </div>
+          </div><div class="control-group">
+            <label class="control-label bold span2" for="server">服务器名:</label>
+            <div class="controls">
+              <input type="text" id="server" name="server" value="<%= locals.server || '' %>"/>
+              <span class="help-inline">请在此输入服务器名，只需输入数字即可</span>
+            </div>
+          </div><div class="control-group">
+            <label class="control-label bold span2" for="sign_url">注册链接:</label>
+            <div class="controls">
+              <input type="text" id="sign_url" name="sign_url" value="<%= locals.sign_url || '' %>"/>
+              <span class="help-inline">请在此输入爱百娱推广注册链接</span>
+            </div>
+          </div>
+
 
           <input type='hidden' name='_csrf' value='<%= csrf %>' />
-          <button id='submit_btn' type="submit" class='btn'>发布</button>
+          <div class="form-actions">
+            <button id='submit_btn' type="submit" class='btn btn-primary'><i class="icon-check icon-white"></i> 发布开服表</button>
+          </div>
         </fieldset>
       </form>
     </div>
@@ -101,6 +94,7 @@
 %>
 <script>
 $(function () {
+
   $('.tag_selectable').click(function(){
     $(this).toggleClass('tag_select');
   });
@@ -114,6 +108,23 @@ $(function () {
     });
     $('#topic_tags').val(values);
     $('#create_topic_form').submit();
+    return false
   });
+  $('#create_topic_form').submit(function(){
+    $.post($(this).attr('action'),$(this).serialize(),function(data){
+      if(data.success === 1){ //发布成功后跳转到首页，uid为发布者的id
+        location.href = 'http://' + location.host+ '/?uid=' + data.topic.author_id;
+      }else{
+        for(var k in data.err){
+          $('[name="'+k+'"]').parents(".control-group").addClass("error");
+        }
+      }
+    })
+    return false;
+  });
+  $("input").focus(function(){
+    $(this).parents(".control-group").removeClass("error")
+  });
+
 });
 </script>

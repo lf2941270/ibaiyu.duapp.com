@@ -19,8 +19,11 @@ exports.newAndSave = function (obj, callback) {
 	topic.save(callback);
 };
 
-exports.update = function (obj, callback) {
-
+exports.update = function (old, newObj, callback) {
+	for(var i in newObj){
+		old[i] = newObj[i];
+	}
+	old.save(callback);
 }
 
 /**
