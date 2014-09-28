@@ -6,7 +6,7 @@
 
   <% if (locals.current_user && (locals.current_user._id == topic.author_id || locals.current_user.is_admin)) { %>
   <a href="/topic/<%= topic._id %>/edit"><i title="编辑开服信息" class="icon-edit"></i></a>
-  <i title="删除开服信息" class="icon-remove"></i>
+  <i title="删除开服信息" class="icon-remove" data-tid="<%= topic._id %>"></i>
   <% } %>
 </li>
 

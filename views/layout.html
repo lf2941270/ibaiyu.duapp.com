@@ -57,16 +57,10 @@
           </form>
           <ul class='nav pull-right'>
             <li><a href='/'>首页</a></li>
-            <%
-            var site_navs = config.site_navs || [];
-            for (var i = 0, l = site_navs.length; i < l; i++) {
-              var nav = site_navs[i];
-            %>
-            <li><a href="<%- nav[0] %>" target="<%- nav[2] %>"><%- nav[1] %></a></li>
-            <% } %>
+
             <% if (locals.current_user) { %>
             <li>
-              <a href="/user/<%= current_user.name %>" title="查看我的主页"> Me </a>
+              <a href="/?uid=<%= current_user._id %>" title="查看我发布的开服表"> 我的开服表 </a>
             </li>
             <li><a href='/setting'>设置</a></li>
             <li>
@@ -87,24 +81,26 @@
       </div>
     </div>
     <div id='backtotop'>回到顶部</div>
-    <div id='footer'>
-      <div id='footer_main'>
-        <div class="links">
-          <a class='dark' href='/about'><strong>关于</strong></a>
-          |
-          <a class='dark' href='/faq'><strong>FAQ</strong></a>
-          |
-          <a class='dark' href='https://github.com/cnodejs/nodeclub/' target="_blank"><strong>Github</strong></a>
-          |
-          <a class='dark' href='/rss' target="_blank"><strong>RSS</strong></a>
+    <div id="footer">
+      <div class="layout layout-1000">
+        <ul class="links">
+          <li><a href="http://www.ibaiyu.cn/4372about.aspx" target="_blank">关于我们</a></li>
+          <li><a href="http://www.ibaiyu.cn/4372about.aspx" target="_blank">联系我们</a></li>
+          <li><a href="http://www.ibaiyu.cn/4372about.aspx" target="_blank">商务合作</a></li>
+          <li><a href="http://www.ibaiyu.cn/4372about.aspx" target="_blank">服务条款</a></li>
+          <li><a href="http://www.ibaiyu.cn/4372about.aspx" target="_blank">人才招聘</a></li>
+          <li><a href="http://www.ibaiyu.cn/jzjk/1.html" target="_blank">家长监护</a></li>
+        </ul>
+        <div class="copyright">
+          <p>
+            鄂ICP备12003812号 鄂ICP证B2-20120079 网络文化经营许可证 鄂网文【2012】0306-007号</p>
+          <p>
+            Copyright © 2012 All Rights Reserved
+          </p>
         </div>
-        <div class='col_fade'>
-          &copy; <%= "2012 - " + (new Date()).getFullYear() %> <br>本社区为开源系统，版本: <%= config.version %> ，欢迎贡献代码<br>
-          由<a href='http://cnodejs.net' target='_blank'> NAE </a>为 <%= config.name %> 提供动力
-        </div>
+
       </div>
     </div>
-    <div id="notice_box" style="position:fixed;top:50px;padding: 5px;border-radius: 3px; border:1px solid #000b15; "></div>
     <script>
       //google跟踪代码
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

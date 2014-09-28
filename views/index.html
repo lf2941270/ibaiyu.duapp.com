@@ -31,10 +31,28 @@
     </div>
   </div>
 </div>
+<input type='hidden' name='_csrf' value='<%= csrf %>' />
 <script>
   $(".topic_list .bd li i").hover(function(){
     $(this).addClass("icon-white");
   },function(){
     $(this).removeClass("icon-white");
-  })
+  });
+
+  /**
+   * 删除开服信息
+   */
+  $('.icon-remove').click(function () {
+    var topicId = $(this).data('tid');
+    if (topicId && confirm('确定要删除此条开服信息吗？')) {
+      $.post('/topic/' + topicId + '/delete', { _csrf: $('#_csrf').val() }, function (result) {
+        if (!result.success) {
+          alert(result.message);
+        } else {
+          location.href =  '/?uid=' + result.topic.author_id;
+        }
+      });
+    }
+    return false;
+  });
 </script>

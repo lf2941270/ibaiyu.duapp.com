@@ -128,3 +128,25 @@ exports.update = function(req, res, next) {//更新开服信息
 
 	})
 }
+
+/**
+ * 删除开服信息
+ **/
+exports.delete = function(req, res, next){
+	var tid = req.params.tid || '';
+	var proxy = new EventProxy;
+	Topic.getTopicById(tid, proxy.done('tid',function(topic, author) {
+		return topic;
+	}));
+	proxy.on('tid',function(topic){
+		if(topic.author_id == req.session.user._id || req.session.user.is_admin){
+			proxy.emit('author', topic);
+		}else{
+			res.json({success:false,message:"您没有权限删除该开服信息。"});
+		}
+	});
+	proxy.on("author", function(topic){
+		topic.remove();
+		res.json({success: true,topic:topic});
+	})
+}

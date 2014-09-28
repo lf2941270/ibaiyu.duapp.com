@@ -43,20 +43,6 @@
   color: hsl(202, 6%, 34%);
   font-weight: bold;
 }
-#footer {
-  height: 200px;
-  clear: both;
-  background: hsla(0, 100%, 100%, 1);
-  position: relative;
-  box-shadow: 0px -1px 0px hsl(0,0%,90%);
-  margin-top: 8px;
-}
-#footer_main {
-  width: 1040px;
-  margin: 0px auto;
-  color: #e2e2e2;
-  padding: 20px 0px;
-}
 #mark_all_messages_btn {
   margin: 5px 0px;
 }
@@ -769,4 +755,44 @@ textarea.editor {
 #submit_btn {
   float: left;
   margin-left: 38px;
+}
+
+#footer {
+  margin-top: 30px;
+  border-top: 3px solid #ff6600;
+  background: #ffffff;
+}
+#footer .links{
+  display: block;
+  text-align: center;
+  padding: 20px 0 16px 0;
+  border-bottom: 1px solid #cccccc;text-align: center;
+}
+#footer .links li{
+  display: inline-block;
+  width: 96px;
+}
+#footer .links li a{
+  color: #888888;
+  font-size: 14px;
+}
+#footer .links li a:hover{
+  color: #ff6600;
+  text-decoration: none;
+}
+.copyright{
+  text-align: center;
+  color: #888888;
+  padding: 14px 0 80px;
+}
+.copyright p{
+  line-height:24px;
+}
+.layout-1000 {
+  width: 1000px;
+}
+.layout {
+  margin: 0 auto;
+  text-align: left;
+  overflow: hidden;
 }

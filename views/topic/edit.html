@@ -111,9 +111,9 @@ $(function () {
     return false
   });
   $('#create_topic_form').submit(function(){
-    $.post($(this).attr('action'),$(this).serialize(),function(data){
+    $.post($(this).attr('action'),$('#create_topic_form').serialize(),function(data){
       if(data.success === 1){ //发布成功后跳转到首页，uid为发布者的id
-        location.href = 'http://' + location.host+ '/?uid=' + data.topic.author_id;
+        location.href = '/?uid=' + data.topic.author_id;
       }else{
         for(var k in data.err){
           $('[name="'+k+'"]').parents(".control-group").addClass("error");
