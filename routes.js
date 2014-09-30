@@ -49,7 +49,9 @@ module.exports = function (app) {
 	app.post('/topic/:tid/edit',auth.signinRequired, topic.update);//编辑开服
 	app.post('/topic/:tid/delete',auth.signinRequired, topic.delete);//删除开服
 
-	app.get('/invitation/:num', auth.adminRequired, ajax.setHeader, sign.createInvitationCode);
+	/*邀请码*/
+	app.get('/invitation', auth.adminRequired, sign.showInvitation);//显示邀请码页面
+	app.post('/invitation/:num', auth.adminRequired, ajax.setHeader, sign.createInvitationCode);
 
 
 	app.get('*', site.notFound); // 404

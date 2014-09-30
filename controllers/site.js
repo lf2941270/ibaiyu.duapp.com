@@ -48,7 +48,6 @@ exports.index = function (req, res, next) {
 				['top', 'desc' ],
 				[ 'open_time', 'desc' ]
 			] };
-		var optionsStr = JSON.stringify(options);
 
 		Topic.getTopicsByQuery(query, options, proxy.done('topics', function (topics) {
 			return topics;

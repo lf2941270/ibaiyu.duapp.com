@@ -39,3 +39,22 @@ exports.getOneByCode = function(code, callback) {
 		callback(null,invitationCode);
 	})
 }
+
+/**
+ *取出表中所有记录
+ **/
+exports.getAllCodes = function(opt, callback) {
+	InvitationCode.find({}, [], opt, function (err, docs) {
+		if (err) {
+			return callback(err);
+		}
+		return callback(null, docs);
+	});
+}
+
+/**
+ *取出表中邀请码的条数
+ **/
+exports.getCounts = function(callback){
+	InvitationCode.count(callback);
+}

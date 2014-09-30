@@ -393,6 +393,35 @@ function randomString(size) {
   return new_pass;
 }
 
+/**
+ *邀请码页面
+ **/
+exports.showInvitation = function(req, res, next){
+	var page = parseInt(req.query.page, 10) || 1;	//当前页数
+	page = page > 0 ? page : 1;
+	var limit = config.list_topic_count; //每页显示开服信息条数
+	var proxy = EventProxy.create('codes', 'pages', function(codes, pages){
+		res.send(codes);
+	});
+	proxy.fail(next);
+
+	var options = {
+		skip: (page - 1) * limit,
+		limit: limit,
+		sort: [
+			[ 'create_time', 'desc' ]
+		] };
+
+	InvitationCode.getAllCodes(options, proxy.done('codes'));
+	InvitationCode.getCounts(proxy.done(function(items){
+		var pages = Math.ceil(items/limit);
+		proxy.emit('pages', pages);
+	}));
+}
+
+/**
+*创建邀请码
+**/
 exports.createInvitationCode = function(req, res, next){
 	var num=req.params.num || 1;
 	var codes=[];
