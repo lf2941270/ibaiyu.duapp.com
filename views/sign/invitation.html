@@ -1,0 +1,21 @@
+<%- partial('sign/sidebar') %>
+<div id="content">
+  <div class="panel">
+    <div class="inner">
+      <div class="header clearfix">
+        <h3>邀请码</h3>
+      </div>
+      <% if (locals.codes && codes.length > 0) { %>
+      <%- partial('sign/list', {
+      codes: codes,
+      pages: pages,
+      current_pages: current_page,
+      }) %>
+      <% } else { %>
+      <div class='inner'>
+        <p>无邀请码</p>
+      </div>
+      <% } %>
+    </div>
+  </div>
+</div>

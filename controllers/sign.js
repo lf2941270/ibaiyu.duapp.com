@@ -401,7 +401,11 @@ exports.showInvitation = function(req, res, next){
 	page = page > 0 ? page : 1;
 	var limit = config.list_topic_count; //每页显示开服信息条数
 	var proxy = EventProxy.create('codes', 'pages', function(codes, pages){
-		res.send(codes);
+		res.render('sign/invitation',{
+			codes: codes,
+			current_page: page,
+			pages: pages
+		});
 	});
 	proxy.fail(next);
 
