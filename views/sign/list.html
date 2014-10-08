@@ -1,10 +1,10 @@
 
-  <div class="topic_list">
+  <div class="code_list">
     <ul class="hd clearfix">
       <li class="col_01">邀请码</li>
       <li class="col_02">是否已使用</li>
     </ul>
-    <ul class="bd clearfix" id="new_server">
+    <ul class="bd clearfix">
       <%- partial('sign/abstract', {collection:codes, as:'code'}) %>
     </ul>
     <div class='pagination' current_page='<%= current_page %>'>
@@ -47,7 +47,8 @@
       </ul>
     </div>
   </div>
-
+  <script src="/public/javascripts/ZeroClipboard.js"></script>
+  <script src="/public/javascripts/copy_main.js"></script>
 <script>
 	$(document).ready(function () {
 		var $nav = $('.pagination');
@@ -62,5 +63,6 @@
 				}
 			});
 		}
+
 	});
 </script>

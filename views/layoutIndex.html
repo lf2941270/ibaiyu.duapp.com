@@ -81,6 +81,39 @@
       </div>
     </div>-->
     <!-- wrapper -->
+    <% if (locals.current_user) { %>
+    <!-- navbar -->
+    <div class='navbar' style="position: absolute;width: 100%;z-index: 9999;">
+      <div class='navbar-inner'>
+        <div class='container' style="width: 1000px; ">
+          <a class='brand' href='/'><%- config.site_logo || config.name %></a>
+          <form id='search_form' class='navbar-search' action="/">
+            <input type='text' id='q' name='q' class='search-query span3' value='<%= locals.keyword || '' %>'/>
+          </form>
+          <ul class='nav pull-right'>
+            <li><a href='/'>首页</a></li>
+            <% if (locals.current_user && locals.current_user.is_admin) { %>
+            <li>
+              <a href="/invitation" title="邀请码"> 邀请码 </a>
+            </li>
+            <% } %>
+            <% if (locals.current_user) { %>
+            <li>
+              <a href="/?uid=<%= current_user._id %>" title="查看我发布的开服表"> 我的开服表 </a>
+            </li>
+            <li><a href='/setting'>设置</a></li>
+            <li>
+              <a href='/signout' data-method="post" rel="nofollow">退出</a>
+            </li>
+            <% } else { %>
+            <li><a href='/signup'>注册</a></li>
+            <li><a href='/signin'>登录</a></li>
+            <% } %>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <% } %>
     <div id='wrapper'>
       <div id='main'>
         <%- body %>

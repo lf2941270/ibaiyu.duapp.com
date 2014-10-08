@@ -1,5 +1,7 @@
 <li class="clearfix">
   <span class="col_01"><%= code.code %></span>
   <span class="col_02"><%= code.used?'已使用':'未使用' %></span>
+  <span class="col_03 copy_code" data-code="<%= code.code %>">
+    <button class="my_clip_button" data-clipboard-text="<%= code.code %>">复制邀请码</button></span>
 </li>
 
