@@ -20,6 +20,15 @@ var githubStrategyMiddleware = require('./middlewares/github_strategy');
 var routes = require('./routes');
 var auth = require('./middlewares/auth');
 var EventProxy = require('eventproxy');
+var mongoStore = require('connect-mongo')(express)
+
+var dburi;
+if(process.env.BAE_ENV_APPID=='appid4d97d63yny'){
+	dburi=config.serverdb;
+}else{
+	dburi=config.localdb;
+}
+
 
 var maxAge = 3600000 * 24 * 30;
 var staticDir = path.join(__dirname, 'public');
@@ -65,7 +74,11 @@ app.use(express.bodyParser({
 app.use(express.methodOverride());
 app.use(express.cookieParser());
 app.use(express.session({
-  secret: config.session_secret
+  secret: config.session_secret,
+	store: new mongoStore({
+		url: dburi,
+		collection: 'sessions'
+	})
 }));
 app.use(passport.initialize());
 // custom middleware

@@ -159,7 +159,8 @@ exports.login = function (req, res, next) {
       return res.render('sign/signin', { error: '此帐号还没有被激活，激活链接已发送到 ' + user.email + ' 邮箱，请查收。' });
     }
     // store session cookie
-    gen_session(user, res);
+		req.session.user = user
+//    gen_session(user, res);
     //check at some page just jump to home page
     var refer = req.session._loginReferer || 'home';
     for (var i = 0, len = notJump.length; i !== len; ++i) {
@@ -319,7 +320,10 @@ exports.auth_user = function (req, res, next) {
       res.local('current_user', req.session.user);
       return next();
     });
-  } else {
+  }else{
+		return next();
+
+	} /*else {
     var cookie = req.cookies[config.auth_cookie_name];
     if (!cookie) {
       return next();
@@ -349,7 +353,7 @@ exports.auth_user = function (req, res, next) {
         return next();
       }
     });
-  }
+  }*/
 };
 
 // private

@@ -5,7 +5,7 @@ $(document).ready(function(){
 		console.log("Flash movie loaded and ready.");
 
 		this.on("aftercopy", function(event) {
-			alert( event.data["text/plain"] + " 已成功复制到剪贴板！");
+			console.log( event.data["text/plain"] + " 已成功复制到剪贴板！");
 		});
 	});
 

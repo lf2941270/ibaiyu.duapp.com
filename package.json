@@ -2,7 +2,6 @@
   "name": "club",
   "version": "0.3.6",
   "main": "app.js",
-
   "private": true,
   "customHost": [
     "cnodejs.org",
@@ -25,7 +24,8 @@
     "passport": "~0.1.17",
     "passport-github": "~0.1.5",
     "forever": "~0.10.11",
-		"memory-cache": "0.0.5"
+    "memory-cache": "0.0.5",
+    "connect-mongo": "~0.4.1"
   },
   "devDependencies": {
     "supertest": "*",
@@ -37,7 +37,7 @@
     "mm": "*"
   },
   "scripts": {
-		"start":"node app.js",
+    "start": "node app.js",
     "test": "make test"
   }
 }
