@@ -52,7 +52,18 @@ module.exports = function (app) {
 	/*邀请码*/
 	app.get('/invitation', auth.adminRequired, sign.showInvitation);//显示邀请码页面
 	app.post('/invitation/:num', auth.adminRequired, ajax.setHeader, sign.createInvitationCode);
-
+	app.get('/testhttp',function(req, res, next){
+		var t=120
+		setInterval(function(){
+			if(t>0){
+				console.log(--t)
+			}
+		},1000)
+		setTimeout(function(){
+			res.send('success:'+new Date());
+		},1000*120)
+	})
 
 	app.get('*', site.notFound); // 404
+
 };
