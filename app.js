@@ -77,7 +77,8 @@ app.use(express.session({
   secret: config.session_secret,
 	store: new mongoStore({
 		url: dburi,
-		collection: 'sessions'
+		collection: 'sessions',
+		defaultExpirationTime:  1000 //尝试改成短连接连接mongodb
 	})
 }));
 app.use(passport.initialize());
@@ -107,7 +108,7 @@ if (config.debug) {
 
 
 // set static, dynamic helpers
-app.helpers({
+app.locals({
   config: config,
   Loader: Loader,
   assets: assets,
