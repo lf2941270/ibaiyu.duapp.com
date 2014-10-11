@@ -40,6 +40,17 @@
   .code_list .bd li i:hover{
     background-color: #555;
   }
+  .header h3{
+    width: 100px;
+    margin-left: 10px;
+    float: left;
+  }
+  .header p{
+    margin-top: 10px;
+    line-height: 40px;
+    float: right;
+    vertical-align: bottom;
+  }
 </style>
 <%- partial('sign/sidebar') %>
 <div id="content">
@@ -47,6 +58,7 @@
     <div class="inner">
       <div class="header clearfix">
         <h3>邀请码</h3>
+        <p>生成<input class="input-small" type="text" value="1" name="num"/>个邀请码 <button class="btn btn-success" id="createInv">生成</button></p>
       </div>
       <% if (locals.codes && codes.length > 0) { %>
       <%- partial('sign/list', {
@@ -62,3 +74,11 @@
     </div>
   </div>
 </div>
+<script>
+  $("#createInv").click(function(){
+    var num = $('[name="num"]').val() || 1;
+    $.post('/invitation/'+num,function(data){
+      location.href = '/invitation'
+    })
+  })
+</script>

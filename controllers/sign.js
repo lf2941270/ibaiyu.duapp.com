@@ -417,8 +417,9 @@ exports.showInvitation = function(req, res, next){
 		skip: (page - 1) * limit,
 		limit: limit,
 		sort: [
-			[ 'create_time', 'desc' ]
-		] };
+			['create_at', 'desc']
+		]
+	};
 
 	InvitationCode.getAllCodes(options, proxy.done('codes'));
 	InvitationCode.getCounts(proxy.done(function(items){
