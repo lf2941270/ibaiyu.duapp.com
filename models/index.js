@@ -36,3 +36,6 @@ exports.TagCollect = mongoose.model('TagCollect');
 exports.Relation = mongoose.model('Relation');
 exports.Message = mongoose.model('Message');
 exports.InvitationCode = mongoose.model('InvitationCode');
+
+//console.log(mongoose);
+exports.mongoose_connection = mongoose.connections[0];
